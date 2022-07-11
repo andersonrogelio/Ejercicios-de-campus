@@ -77,7 +77,7 @@
     // console.log("Esto se ejecuta independientemente del resultado de la promesa fetch");
 });
 })();
-
+//Ahora con fetch y async function
 (() => {
     $fetchAsync = document.getElementById("fetch-async");
     $fragment = document.createDocumentFragment();
@@ -111,4 +111,35 @@
         }
     }
     getData();
+})();
+//Ahora con la libreria Axios
+(() => {
+    $axios = document.getElementById("axios");
+    $fragment = document.createDocumentFragment();
+    //Aca empezamos a usar el axios y lo siguiente son sus metodos
+    axios
+    .get('https://jsonplaceholder.typicode.com/user')
+    .then(res => {
+        console.log(res);
+        json = res.data;
+                        //recorro el json con un forEach 
+                        json.forEach(element => {
+                            //creo un elemento li 
+                            const $li = document.createElement("li")
+                            //luego agregamos la info del objeto guardado en la variable json
+                            $li.innerHTML = `${element.name} -- ${element.email} -- ${element.phone}`
+                            //luego agrego el elemento li dentro del fragmento de html que creamos 
+                            $fragment.appendChild($li);
+                        });
+                        //luego agregarlo a mi lista ordenada 
+                        $axios.appendChild($fragment);
+    })
+    .catch(err => {
+        console.log(err.response);
+        let message = err.response.statusText || "Ocurrio un error";
+        $axios.innerHTML = `Error ${err.response.status}: ${message}`;
+    })
+    .finally(() => {
+        console.log("Esto se ejecuta independientemente del resultado Axios");
+    });
 })();
