@@ -44,3 +44,37 @@
 
     xhr.send();
 })();
+
+// Ahora con fetch
+(() => {
+    $fetch = document.getElementById("fetch");
+    $fragment = document.createDocumentFragment();
+
+    fetch('https://jsonplaceholder.typicode.com/users')
+    // .then(res =>{
+    // console.log(res);
+    // return res.ok ? res.json(): Promise.reject(res);
+// })
+.then((res) => res.ok ? res.json(): Promise.reject(res))
+.then(json => {
+    console.log(json);
+                //recorro el json con un forEach 
+                json.forEach(element => {
+                    //creo un elemento li 
+                    const $li = document.createElement("li")
+                    //luego agregamos la info del objeto guardado en la variable json
+                    $li.innerHTML = `${element.name} -- ${element.email} -- ${element.phone}`
+                    //luego agrego el elemento li dentro del fragmento de html que creamos 
+                    $fragment.appendChild($li);
+                });
+                //luego agregarlo a mi lista ordenada 
+                $fetch.appendChild($fragment);
+})
+.catch(err =>{
+    console.log(err);
+    let message = err.statusText||"Ocurrio un error"
+    $fetch.innerHTML = `Error ${err.status}: ${message}`
+}).finally(() => {
+    console.log("Esto se ejecuta independientemente del resultado de la promesa fetch");
+});
+})();
