@@ -7,6 +7,46 @@
     <title>CRUD API REST FETCH</title>
 </head>
 <body>
+    
+    <h1>CRUD API REST FETCH</h1>
+    <section class="crud">
+        <article >
+            <h2 class="crud_title">Agregar Santo</h2>
+            <form action="" class="crud_form">
+                <input type="text" name="nombre" placeholder="Nombre" required>
+                <br>
+                <input type="text" name="constelacion" placeholder="Constelación" required>
+                <br>
+                <input type="submit" value="Enviar">
+                <input type="hidden" name="id">
+            </form>
+        </article>
+        <article>
+            <h2>Ver Santos</h2>
+            <table class="crud_table">
+                <thead>
+                    <tr>
+                        <th>Nombre:</th>
+                        <th>Constelación:</th>
+                        <th>Acciones:</th>
+                    </tr>
+                </thead>
+                <tbody>
 
+                </tbody>
+            </table>
+        </article>
+    </section>
+    <template id="crud_template">
+        <tr>
+            <th class="name"></th>
+            <th class="constellation"></th>
+            <th>
+                <button class="edit">Editar</button>
+                <button class="delete">Eliminar</button>
+            </th>
+        </tr>
+    </template>
+    <script src="js/index_FETCH.js"></script>v
 </body>
 </html>
