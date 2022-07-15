@@ -41,13 +41,17 @@ const getAll = async() => {
 }
 //Llamamos la funcion mediante el evento DOMContentLoaded
 d.addEventListener("DOMContentLoaded", getAll)
-
+//Mediante el evento submit enviaremos datos y los actualizaremos 
+//usando fuciones asincronas
 d.addEventListener("submit", async e => {
     if (e.target === $form) {
         e.preventDefault();
+        //verificar que tipo de operacion se hara
         if (!e.target.id.value) {
             //Create - POST
+            //Empezamos todo el proceso de envio de datos en caso de que sea un dato nuevo a ser guardado
           try {
+            //configuramos la informacion que sera enviada en la peticion post
             let options = {
               method: "POST",
               headers: {
@@ -58,13 +62,15 @@ d.addEventListener("submit", async e => {
                 constelacion: e.target.constelacion.value
               })
             },
+            //Enviamos la informacion
               res = await fetch("http://localhost:3000/santos", options),
               json = await res.json();
-
+              //La siguiente linea nos permite manejar los errores de forma manual
             if (!res.ok) throw { status: res.status, statusText: res.statusText };
-
+            //volvemos a recargar la pagina para que se muestre la nueva informacion
             location.reload();
           } catch (error) {
+            //manejo del error 
                 let message = error.statusText||"Ocurrio un error";
                 $form.insertAdjacentHT("afterend",`<p>Error ${error.status0}: ${message}</p>`)
             }
