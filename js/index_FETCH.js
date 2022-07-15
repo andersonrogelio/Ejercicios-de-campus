@@ -41,3 +41,36 @@ const getAll = async() => {
 }
 //Llamamos la funcion mediante el evento DOMContentLoaded
 d.addEventListener("DOMContentLoaded", getAll)
+
+d.addEventListener("submit", async e => {
+    if (e.target === $form) {
+        e.preventDefault();
+        if (!e.target.id.value) {
+            //Create - POST
+          try {
+            let options = {
+              method: "POST",
+              headers: {
+                "Content-type": "application/json; charset=utf-8"
+              },
+              body: JSON.stringify({
+                nombre: e.target.nombre.value,
+                constelacion: e.target.constelacion.value
+              })
+            },
+              res = await fetch("http://localhost:3000/santos", options),
+              json = await res.json();
+
+            if (!res.ok) throw { status: res.status, statusText: res.statusText };
+
+            location.reload();
+          } catch (error) {
+                let message = error.statusText||"Ocurrio un error";
+                $form.insertAdjacentHT("afterend",`<p>Error ${error.status0}: ${message}</p>`)
+            }
+        }else{
+            //update put
+           
+        }
+    }
+});
