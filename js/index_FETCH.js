@@ -109,12 +109,40 @@ d.addEventListener("submit", async e => {
 d.addEventListener("click", async e => {
     //Verificamos que el elemento selecionado sea el boton de editar
     if (e.target.matches(".edit")) {
-        //enviamos todos los datos a nuestro formulario para luego enviarlos como actualizaciones
+        //enviamos todos los datos a nuestro formulario para luego enviarlos como actualizacion
+        
       $title.textContent = "Editar Santo";
       $form.nombre.value = e.target.dataset.name;
       $form.constelacion.value = e.target.dataset.constellation;
       $form.id.value = e.target.dataset.id;
     //   $title.appendChild($form);
+    }
+    //Verificamos que de verdad se dese eliminar un elemento de nuestro server mediante un mensaje
+    if (e.target.matches(".delete")) {
+        let isDelete = confirm(`¿Estás seguro de eliminar el id ${e.target.dataset.id}?`);
+
+    if (isDelete) {
+        //configuramos el cuerpo de la peticion para poder borrar un elemento de nuestro server
+        try {
+          let options = {
+            method: "DELETE",
+            headers: {
+              "Content-type": "application/json; charset=utf-8"
+            }
+          },
+          //enviamos la informacion 
+            res = await fetch(`http://localhost:3000/santos/${e.target.dataset.id}`, options),
+            json = await res.json();
+            //esta sentencia nos permite manejar el error en caso de que exista alguno
+          if (!res.ok) throw { status: res.status, statusText: res.statusText };
+          //recargamos la pagina para volver a actualizar la informacion
+          location.reload();
+        } catch (err) {
+            //manejamos el error mostrando el tipo y un mensaje
+          let message = err.statusText || "Ocurrió un error";
+          alert(`Error ${err.status}: ${message}`);
+        }
+      }
     }
 
     
