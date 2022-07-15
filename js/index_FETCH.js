@@ -75,8 +75,33 @@ d.addEventListener("submit", async e => {
                 $form.insertAdjacentHT("afterend",`<p>Error ${error.status0}: ${message}</p>`)
             }
         }else{
-            //update put
-           
+            // console.log(e.target.id.value);
+            //Empezamos todo el proceso de envio de datos para el caso de actualizar datos
+            try {
+            //configuramos la informacion que sera enviada en la peticion put
+                let options = {
+                  method: "PUT",
+                  headers: {
+                    "Content-type": "application/json; charset=utf-8"
+                  },
+                  body: JSON.stringify({
+                    nombre: e.target.nombre.value,
+                    constelacion: e.target.constelacion.value
+                  })
+                },
+            //Enviamos la informacion
+                res = await fetch(`http://localhost:3000/santos/${e.target.id.value}`, options),
+                json = await res.json();
+              //La siguiente linea nos permite manejar los errores de forma manual
+                if (!res.ok) throw { status: res.status, statusText: res.statusText };
+            //volvemos a recargar la pagina para que se muestre la nueva informacion
+                location.reload();
+              } catch (error) {
+            //manejo del error 
+                    let message = error.statusText||"Ocurrio un error";
+                    $form.insertAdjacentHT("afterend",`<p>Error ${error.status0}: ${message}</p>`)
+                }
         }
     }
+           
 });
