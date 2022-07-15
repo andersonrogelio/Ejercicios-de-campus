@@ -105,3 +105,17 @@ d.addEventListener("submit", async e => {
     }
            
 });
+//Con el evento click manejamos las acciones para editar datos o eliminarlos
+d.addEventListener("click", async e => {
+    //Verificamos que el elemento selecionado sea el boton de editar
+    if (e.target.matches(".edit")) {
+        //enviamos todos los datos a nuestro formulario para luego enviarlos como actualizaciones
+      $title.textContent = "Editar Santo";
+      $form.nombre.value = e.target.dataset.name;
+      $form.constelacion.value = e.target.dataset.constellation;
+      $form.id.value = e.target.dataset.id;
+    //   $title.appendChild($form);
+    }
+
+    
+});
