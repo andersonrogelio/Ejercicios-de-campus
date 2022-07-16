@@ -1,0 +1,33 @@
+body {
+    background-image: url("/CRUD_FETCH/img/fondo.png");
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.crud_form{
+    margin-left: 23%;
+    margin-right: auto;
+}
+
+section h4{
+    text-align: center;
+}
+section h2{
+    text-align: center;
+}
+.crud{
+    display: block;
+    height: 450px;
+    width: 350px;
+    border-radius: 10px;
+}
+.crud_table{
+    margin-left: 5%;
+    margin-right: auto;
+}
+body h3{
+    text-align: center;
+    margin-top: 10px;
+}
